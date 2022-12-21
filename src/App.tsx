@@ -34,7 +34,6 @@ const SLayout = styled.div`
   position: relative;
   width: 100%;
   /* height: 100%; */
-  // font-weight:bold;
   min-height: 100vh;
   text-align: center;
 `;
