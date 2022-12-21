@@ -16,6 +16,7 @@ import {
   apiGetAccountNonce,
   apiGetGasPrices,
   GetBalance,
+  Hash,
 } from "./helpers/api";
 import {
   hashMessage,
@@ -526,6 +527,8 @@ class App extends React.Component<any, any> {
 
   public testStandardSignMessage = async () => {
     const { connector, address, chainId } = this.state;
+    // export const Sign = async (nonce, walletAddress) =>
+    //   await web3.eth.personal.sign(nonce, walletAddress, "");
 
     if (!connector) {
       return;
@@ -535,7 +538,7 @@ class App extends React.Component<any, any> {
     const message = `My email is john@doe.com - ${new Date().toUTCString()}`;
 
     // encode message (hex)
-    const hexMsg = convertUtf8ToHex(message);
+    const hexMsg = Hash(convertUtf8ToHex(message));
 
     // eth_sign params
     const msgParams = [address, hexMsg];
@@ -735,6 +738,7 @@ class App extends React.Component<any, any> {
       pendingRequest,
       result,
     } = this.state;
+
     return (
       <SLayout>
         <Column maxWidth={1000} spanHeight>
@@ -773,9 +777,9 @@ class App extends React.Component<any, any> {
                     {/*<STestButton left onClick={this.testLegacySignMessage}>
                                             {'eth_sign (legacy)'}
                                         </STestButton>*/}
-                    {/* <STestButton left onClick={this.testStandardSignMessage}>
+                    <STestButton left onClick={this.testStandardSignMessage}>
                       {"eth_sign (standard)"}
-                    </STestButton> */}
+                    </STestButton>
                     {/*<STestButton left onClick={this.testPersonalSignMessage}>
                                             {'personal_sign'}
                                         </STestButton>*/}

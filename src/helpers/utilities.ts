@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { providers } from "ethers";
 import { convertUtf8ToHex } from "@walletconnect/utils";
 import { TypedDataUtils } from "eth-sig-util";
@@ -5,6 +6,8 @@ import * as ethUtil from "ethereumjs-util";
 import { IChainData } from "./types";
 import { SUPPORTED_CHAINS } from "./chains";
 import { eip1271 } from "./eip1271";
+
+const infuraApiKey = process.env.REACT_APP_INFURA_API_KEY;
 
 export function capitalize(string: string): string {
   return string
@@ -108,7 +111,7 @@ export function getChainData(chainId: number): IChainData {
     throw new Error("ChainId missing or not supported");
   }
 
-  const API_KEY = process.env.REACT_APP_INFURA_PROJECT_ID;
+  const API_KEY = infuraApiKey;
 
   if (
     chainData.rpc_url.includes("infura.io") &&

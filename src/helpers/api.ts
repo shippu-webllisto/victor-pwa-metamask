@@ -4,6 +4,10 @@ import "dotenv/config";
 
 import { IAssetData, IGasPrices, IParsedTx } from "./types";
 
+const infuraApiKey = process.env.REACT_APP_INFURA_API_KEY;
+const ploygonTestnetAlchemyApiKey = process.env.REACT_APP_POLYGON_TESTNET_ALCHEMY_API_KEY;
+const ploygonMainnetAlchemyApiKey = process.env.REACT_APP_POLYGON_TESTNET_ALCHEMY_API_KEY;
+
 const api: AxiosInstance = axios.create({
   baseURL: "https://ethereum-api.xyz",
   timeout: 30000, // 30 secs
@@ -15,9 +19,6 @@ const api: AxiosInstance = axios.create({
 
 export const getProvider = async (chainId: number): Promise<any> => {
   let rpc = "";
-  const infuraApiKey = process.env.REACT_APP_INFURA_API_KEY;
-  const ploygonTestnetAlchemyApiKey = process.env.REACT_APP_POLYGON_TESTNET_ALCHEMY_API_KEY;
-  const ploygonMainnetAlchemyApiKey = process.env.REACT_APP_POLYGON_TESTNET_ALCHEMY_API_KEY;
 
   switch (chainId) {
     case 1: // ethereum mainnet
@@ -59,6 +60,11 @@ export const GetBalance = async (address: string, chainId: number): Promise<any>
   //   // console.log("<>>>>>>>", balanceInEth);
   //   return balanceInEth;
   // });
+};
+
+export const Hash = (data: any): any => {
+  // If needed, convert strings to bytes first:
+  return ethers.utils.keccak256(data);
 };
 
 export async function apiGetAccountAssets(address: string, chainId: number): Promise<IAssetData[]> {
