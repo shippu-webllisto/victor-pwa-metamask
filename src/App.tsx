@@ -12,7 +12,7 @@ import Header from "./components/Header";
 import Loader from "./components/Loader";
 import { fonts } from "./styles";
 import {
-  apiGetAccountAssets,
+  // apiGetAccountAssets,
   apiGetAccountNonce,
   apiGetGasPrices,
   GetBalance,
@@ -278,10 +278,19 @@ class App extends React.Component<any, any> {
     try {
       // get account balances
       let assets: any = null;
+      const balance = await GetBalance(address, chainId);
       if (chainId === 1 || chainId === 5) {
-        assets = await apiGetAccountAssets(address, chainId);
+        // assets = await apiGetAccountAssets(address, chainId);
+        assets = [
+          {
+            balance,
+            contractAddress: "",
+            decimals: "18",
+            name: "Ether",
+            symbol: "ETH",
+          },
+        ];
       } else {
-        const balance = await GetBalance(address, chainId);
         assets = [
           {
             balance,
@@ -292,7 +301,6 @@ class App extends React.Component<any, any> {
           },
         ];
       }
-      console.log(assets, "!!!<getBalance>!!!!");
 
       await this.setState({ fetching: false, address, assets });
     } catch (error) {

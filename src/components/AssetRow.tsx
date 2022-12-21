@@ -4,7 +4,7 @@ import Icon from "./Icon";
 import ERC20Icon from "./ERC20Icon";
 import eth from "../assets/eth.svg";
 import xdai from "../assets/xdai.png";
-import { handleSignificantDecimals, convertAmountFromRawNumber } from "../helpers/bignumber";
+// import { handleSignificantDecimals, convertAmountFromRawNumber } from "../helpers/bignumber";
 
 const SAssetRow = styled.div`
   width: 100%;
@@ -28,6 +28,7 @@ const SAssetBalance = styled.div`
 
 const AssetRow = (props: any) => {
   const { asset } = props;
+
   const nativeCurrencyIcon =
     asset.symbol && asset.symbol.toLowerCase() === "eth"
       ? eth
@@ -46,9 +47,10 @@ const AssetRow = (props: any) => {
       </SAssetRowLeft>
       <SAssetRowRight>
         <SAssetBalance>
-          {`${handleSignificantDecimals(convertAmountFromRawNumber(asset.balance), 8)} ${
+          {/* {`${handleSignificantDecimals(convertAmountFromRawNumber(asset.balance), 8)} ${
             asset.symbol
-          }`}
+          }`} */}
+          {`${Number(asset.balance).toFixed(3)} ${asset.symbol}`}
         </SAssetBalance>
       </SAssetRowRight>
     </SAssetRow>
